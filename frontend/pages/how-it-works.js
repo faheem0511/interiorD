@@ -3,7 +3,6 @@ import Head from "next/head";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Navbar from "../components/navbar";
-import tailwindConfig from "@/tailwind.config";
 import Footer from "@/components/Footer";
 export default function HowItWorks() {
 

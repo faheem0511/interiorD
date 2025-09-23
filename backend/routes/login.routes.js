@@ -1,16 +1,51 @@
-import express from 'express';
+import express from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import UserModel from "../model/user.model.js"; // adjust path if needed
+
 const router = express.Router();
 
-router.post('/login', (req, res) => {
-  const { email, password } = req.body;
+// @route   POST /api/login
+// @desc    Authenticate user & return token
+// @access  Public
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-  if (email === 'test@example.com' && password === '123456') {
-    return res.json({
-      token: 'mock-jwt-token',
-      user: { name: 'Faheem Daruwala', email },
+    // ✅ Validate input
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: "All fields are required" });
+    }
+
+    // ✅ Check user exists
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ success: false, message: "Invalid email or password" });
+    }
+
+    // ✅ Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: "Invalid email or password" });
+    }
+
+    // ✅ Create JWT
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET || "supersecret", // put in .env
+      { expiresIn: "1h" }
+    );
+
+    // ✅ Send response
+    res.json({
+      success: true,
+      message: "Login successful",
+      token,
+      user: { id: user._id, name: user.name, email: user.email, role: user.role },
     });
-  } else {
-    return res.status(401).json({ message: 'Invalid email or password' });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
 

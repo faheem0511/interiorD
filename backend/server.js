@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import designRoutes from './routes/design.routes.js';
 import loginRoutes from './routes/login.routes.js';
+import SignupRoutes from './routes/signup.routes.js';
 dotenv.config();
 const app = express();
 
@@ -15,7 +16,7 @@ app.use('/api/design', designRoutes);
 // Importing the login routes
 
 app.use('/api', loginRoutes);
-
+app.use('/api', SignupRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

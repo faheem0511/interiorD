@@ -41,7 +41,7 @@ export default function Navbar() {
           href="/"
           className={`text-2xl font-bold ${isActive ? 'text-decorilla-dark' : 'text-white'}`}
         >
-          <span className={isActive ? 'text-decorilla-blue' : 'text-white'}>DECO</span>RILLA
+          <span className={isActive ? 'text-decorilla-blue' : 'text-white'}>DECO</span>WISE
         </Link>
 
         {/* Nav Links */}
@@ -152,7 +152,7 @@ export default function Navbar() {
 
         {/* CTA */}
         <Link
-          href="/get-started"
+          href="/login"
           className={`rounded-md font-medium px-6 py-2 transition-all duration-300 ${
             isActive
               ? 'bg-decorilla-blue hover:bg-blue-700 text-white'

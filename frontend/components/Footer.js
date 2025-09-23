@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8">
+    <footer className="bg-decorilla-blue/85 text-black pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mb-12">
           {/* Company Info */}
           <div>
             <div className="mb-4">
@@ -43,7 +43,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-bold text-black mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li><Link href="/how-it-works" className="text-gray-300 hover:text-white">How It Works</Link></li>
               <li><Link href="/pricing" className="text-gray-300 hover:text-white">Pricing</Link></li>
@@ -55,7 +55,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
+            <h3 className="text-lg font-bold text-black mb-4">Services</h3>
             <ul className="space-y-2">
               <li><Link href="/living-room" className="text-gray-300 hover:text-white">Living Room Design</Link></li>
               <li><Link href="/bedroom" className="text-gray-300 hover:text-white">Bedroom Design</Link></li>
@@ -67,7 +67,7 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Get Design Tips</h3>
+            <h3 className="text-lg font-bold text-black mb-4">Get Design Tips</h3>
             <p className="text-gray-300 mb-4">
               Subscribe to our newsletter for the latest design trends and tips.
             </p>
