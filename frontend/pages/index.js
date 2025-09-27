@@ -9,15 +9,18 @@ import Faq from '../components/Faq';
 
 export default function Home() {
   return (
-    <div className="font-sans">
-      <Navbar />
-      <HeroSection />
-      <HowItWorks />
-      <Ai />
-      <DesignStyles />
-      <Testimonials />
-      <Faq />      
-      <Footer />
-    </div> 
+    <>
+
+      <div className="font-sans">
+        <Navbar />
+        <HeroSection />
+        <HowItWorks />
+        {/* <Ai /> */}
+        <DesignStyles />
+        <Testimonials />
+        <Faq />      
+        <Footer />
+      </div>
+    </>
   );
 }
