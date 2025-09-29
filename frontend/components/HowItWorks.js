@@ -1,7 +1,7 @@
 export default function HowItWorks() {
   return (
 
-  <section className="relative w-full bg-gray-200 py-20 px-6 md:px-16 overflow-hidden items-center">
+  <section className="relative w-full bg-[#F7F2EC] py-20 px-6 md:px-16 overflow-hidden items-center">
     <h2 className="text-3xl md:text-5xl font-semi-bold text-center mb-16 font-serif text-gray-800">
       Experience Online Room Design
     </h2>
