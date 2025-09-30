@@ -6,10 +6,10 @@ import { useState } from 'react';
 const designStyles = [
   {
     name: "Modern",
-    image: "/hero-bg.jpg",
+    image: "/modern.jpg",
     description: "Clean lines, neutral colors, and open spaces",
     count: "1,240+ Projects",
-    color: "from-blue-600 to-blue-800",
+    color: "from-[blue-600 to-blue-800]",
     gallery: ["/hero-bg.jpg", "/modern-2.jpg", "/modern-3.jpg"]
   },
   {
@@ -17,16 +17,14 @@ const designStyles = [
     image: "/traditional.jpg",
     description: "Classic elegance with rich details",
     count: "980+ Projects",
-    color: "from-amber-600 to-amber-800",
-    gallery: ["/traditional.jpg", "/traditional-2.jpg", "/traditional-3.jpg"]
+
   },
   {
     name: "Transitional",
     image: "/transitional.jpg", 
     description: "Balance between traditional and contemporary",
     count: "1,150+ Projects",
-    color: "from-emerald-600 to-emerald-800",
-    gallery: ["/transitional.jpg", "/transitional-2.jpg", "/transitional-3.jpg"]
+
   },
   {
     name: "Industrial",
@@ -54,7 +52,6 @@ export default function DesignStyles() {
     {/* bg-gradient-to-r from-decorilla-blue to-purple-600 */}
       <section className="py-20 bg-gradient-to-b from-gray-300 via-white to-gray-50 relative overflow-hidden">
         {/* Background decoration */}
-
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* Enhanced Section Header */}
@@ -128,7 +125,7 @@ function StyleCard({ style, onImageClick, index }) {
         />
         
         {/* Content */}
-        <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
+        <div className="absolute bg-[#846A4D]/40 inset-0 flex flex-col justify-between p-6 text-white">
           {/* Top badge */}
           <div className="self-start">
 
@@ -136,7 +133,7 @@ function StyleCard({ style, onImageClick, index }) {
 
           {/* Bottom content */}
           <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-            <h3 className="text-3xl font-bold mb-3 drop-shadow-lg">{style.name}</h3>
+            <h3 className="text-3xl text-gray-200 font-bold mb-3 drop-shadow-lg">{style.name}</h3>
             <p className="text-gray-200 mb-4 opacity-90 leading-relaxed">{style.description}</p>
             <div className="flex items-center justify-between">
               <div className="flex items-center text-sm text-gray-200">

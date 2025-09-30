@@ -69,7 +69,7 @@
             >
               <ReactCompareImage
                 leftImage="/h1.jpg"
-                rightImage="/h2.jpg"
+                rightImage="/h3.jpg"
                 sliderPositionPercentage={0.5}
                 leftImageLabel="Before"
                 rightImageLabel="After"

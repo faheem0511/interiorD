@@ -6,7 +6,8 @@ import Footer from '../components/Footer';
 import Navbar from '../components/navbar';
 import Ai from '../components/Ai';
 import Faq from '../components/Faq';
-
+import Last from '../components/Last'
+import Feature from '../components/feature';
 export default function Home() {
   return (
     <>
@@ -18,7 +19,9 @@ export default function Home() {
         {/* <Ai /> */}
         <DesignStyles />
         <Testimonials />
-        <Faq />      
+        <Feature/>
+        <Last/>  
+        <Faq />    
         <Footer />
       </div>
     </>
