@@ -120,10 +120,10 @@ export default function Navbar() {
                   <div className="relative w-48 bg-white rounded-md shadow-lg z-50 overflow-hidden">
                     <div className="absolute -top-2 left-6 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white"></div>
                     <Link
-                      href="/how-it-works/process"
+                      href="/how-it-works"
                       className="block px-4 py-3 text-decorilla-dark hover:bg-[#A78A68] hover:text-white transition-all duration-200"
                     >
-                      Design Process
+                      The Details
                     </Link>
                     <Link
                       href="/how-it-works/pricing"

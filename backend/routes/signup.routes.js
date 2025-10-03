@@ -4,9 +4,6 @@ import UserModel from "../model/user.model.js"; // adjust path if needed
 
 const router = express.Router();
 
-// @route   POST /api/signup
-// @desc    Register a new user
-// @access  Public
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;

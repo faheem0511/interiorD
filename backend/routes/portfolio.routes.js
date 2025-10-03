@@ -19,8 +19,6 @@ const upload = multer({ storage });
 
 // Public: get portfolio
 router.get("/", getPortfolioItems);
-
-// Admin routes (add/edit/delete)
 router.post("/", upload.single("image"), addPortfolioItem);
 router.put("/", upload.single("image"), updatePortfolioItem);
 router.delete("/", deletePortfolioItem);
