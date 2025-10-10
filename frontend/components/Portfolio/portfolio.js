@@ -100,8 +100,8 @@
                   transition={{ duration: 0.6 }}
                 >
                   <ReactCompareImage
-                    leftImage={`/images/before${index}.jpg`}
-                    rightImage={`/images/after${index}.jpg`}
+                    leftImage={"p1.jpg"}
+                    rightImage={"p2.jpg"}
                     sliderPositionPercentage={0.5}
                   />
                 </motion.div>

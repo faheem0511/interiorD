@@ -50,14 +50,14 @@ export default function DesignStyles() {
   return (
     <>
     {/* bg-gradient-to-r from-decorilla-blue to-purple-600 */}
-      <section className="py-20 bg-gradient-to-b from-gray-300 via-white to-gray-50 relative overflow-hidden">
+      <section className="py-10 bg-gradient-to-b from-gray-300 via-white to-gray-50 relative overflow-hidden">
         {/* Background decoration */}
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* Enhanced Section Header */}
-          <div className="text-center mb-20">
+          <div className="text-center mb-8">
     
-            <h2 className="text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 leading-tight">
+            <h2 className="text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
               Our Design
               <span className="block bg-[#846A4D] to-purple-600 bg-clip-text text-transparent pb-4">
                 Styles
@@ -83,8 +83,8 @@ export default function DesignStyles() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/styles"
-                  className="inline-flex items-center px-8 py-4 bg-decorilla-blue hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  href="/portfolio"
+                  className="inline-flex items-center px-8 py-4 bg-[#846A4D] to-purple-600 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -156,7 +156,7 @@ function StyleCard({ style, onImageClick, index }) {
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/40 backdrop-blur-sm transition-all duration-300">
         <div className="text-center transform scale-95 group-hover:scale-100 transition-transform duration-300">
           <button 
-            className="px-8 py-3 bg-white text-gray-900 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 mb-2"
+            className="px-8 py-3 bg-[#F7F2EC] text-gray-900 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 mb-2"
             onClick={(e) => {
               e.stopPropagation();
               onImageClick(style.image, style.name);

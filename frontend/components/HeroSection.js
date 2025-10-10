@@ -9,8 +9,8 @@ export default function Hero() {
         <p className="text-gray-200 text-lg md:text-xl mb-8 max-w-xl">
           Work with top designers + AI-generated layouts for your dream interior.
         </p>
-        <button className="bg-[#8E6943] hover:bg-[#6F5234]
-         text-black font-semi-bold py-5 px-8 rounded-lg text-lg shadow-lg mb-4">
+        <button className="bg-[#846A4D] hover:bg-[#6F5234]
+         text-white font-semi-bold py-5 px-8 rounded-lg text-lg shadow-lg mb-4">
           Start My Transformation
         </button>
      

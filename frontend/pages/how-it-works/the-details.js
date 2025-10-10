@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import Footer from "../components/Footer";
-import Navbar from "../components/navbar";
+import Footer from "../../components/Footer";
+import Navbar from "../../components/navbar";
 
 export default function HowItWorks() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
