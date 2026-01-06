@@ -11,7 +11,14 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showMobileHowDropdown, setShowMobileHowDropdown] = useState(false);
   const [showMobilePortfolioDropdown, setShowMobilePortfolioDropdown] = useState(false);
+  const [user, setUser] = useState(null);
+
   const heroRef = useRef(null);
+
+   const logout = () => {
+    localStorage.removeItem("user");
+    window.location.href = "/";
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,6 +76,14 @@ export default function Navbar() {
     setShowMobilePortfolioDropdown(false);
   };
 
+  
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
+
   return (
     <>
       <div
@@ -83,6 +98,12 @@ export default function Navbar() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center relative">
+          <div className="flex items-center gap-3 justify-center">
+          <img 
+          src="/logo1.png" 
+          alt="Decorilla Logo" 
+          className="w-12 h-15 object-contain"
+          />  
           {/* Logo */}
           <Link
             href="/"
@@ -96,7 +117,7 @@ export default function Navbar() {
             </span>
             WISE
           </Link>
-
+</div>
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex space-x-8 relative">
@@ -211,16 +232,45 @@ export default function Navbar() {
           </div>
 
           {/* Desktop CTA */}
-          <Link
-            href="/login"
-            className={`hidden md:block rounded-md font-medium px-6 py-2 transition-all duration-300 ${
-              isActive
-                ? 'bg-decorilla-blue hover:bg-decorilla-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
-                : 'bg-transparent border-2 border-white text-white hover:bg-white/10 hover:shadow-lg'
-            }`}
-          >
-            GET STARTED
-          </Link>
+   <div className="hidden md:flex items-center gap-4">
+            {!user ? (
+              <Link
+                href="/login"
+                className={`px-6 py-2 rounded-md font-semibold transition-all ${
+                  isActive
+                    ? "bg-decorilla-blue text-white shadow-lg"
+                    : "border-2 border-white text-white"
+                }`}
+              >
+                GET STARTED
+              </Link>
+            ) : (
+              <div className="relative group">
+                <div
+                  className={`px-4 py-2 font-semibold cursor-pointer ${
+                    isActive ? "text-decorilla-dark" : "text-white"
+                  }`}
+                >
+                  Hello, {user.name}
+                </div>
+
+                <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                  <Link
+                    href="/dashboard"
+                    className="block px-4 py-3 text-sm hover:bg-gray-100"
+                  >
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={logout}
+                    className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Mobile Hamburger Menu */}
           <button
@@ -390,16 +440,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Mobile CTA */}
-          <div className="mt-8">
-            <Link
-              href="/login"
-              className="block w-full text-center bg-decorilla-blue hover:bg-decorilla-blue-700 text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-              onClick={closeMobileMenu}
-            >
-              GET STARTED
-            </Link>
-          </div>
+ 
         </div>
       </div>
 

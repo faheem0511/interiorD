@@ -1,35 +1,59 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 export default function Signup() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const handleChange = (e) => {
+    setError("");
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (form.password.length < 6) {
+      return setError("Password must be at least 6 characters long");
+    }
+
     setIsLoading(true);
+    setError("");
+    setSuccess("");
 
     try {
-      const res = await fetch(`${process.env.API_URL}/api/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`,
+        form,
+        { withCredentials: true }
+      );
 
-      const data = await res.json();
+      if (!data?.success) {
+        throw new Error(data?.message || "Signup failed");
+      }
 
-      if (!res.ok) throw new Error(data.message || "Signup failed");
-
-      alert("Signup successful!");
-      router.push("/login");
+      setSuccess("Account created successfully! Redirecting...");
+      setTimeout(() => router.push("/login"), 1500);
     } catch (err) {
-      alert(err.message);
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          "Something went wrong"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -37,40 +61,52 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen flex bg-decorilla-blue/50">
-      {/* Left Side - Image */}
-      <div className="flex-1 relative overflow-hidden">
+      {/* Left Image */}
+      <div className="hidden lg:block flex-1 relative overflow-hidden">
         <img
           src="/h1.jpg"
-          alt="Signup Background"
+          alt="Signup"
           className="object-cover w-full h-full"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-        <div className="absolute inset-0 bg-decorilla-blue/20 to-purple-600/30"></div>
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      {/* Right Side - Signup Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      {/* Form */}
+      <div className="flex-1 flex items-center justify-center px-6">
+        <div className="w-full max-w-md space-y-8 bg-white p-10 rounded-3xl shadow-xl">
+          <div className="text-center">
+            <h2 className="text-3xl font-extrabold text-gray-900">
               Create your account
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Or{" "}
+            <p className="mt-2 text-sm text-gray-600">
+              Already have one?{" "}
               <a
                 href="/login"
-                className="font-medium text-decorilla-blue hover:text-decorilla-blue"
+                className="font-semibold text-decorilla-blue hover:underline"
               >
-                login
+                Login
               </a>
             </p>
           </div>
 
-          {/* Signup Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Alerts */}
+          {error && (
+            <div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">
+              {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="rounded-xl bg-green-50 px-4 py-3 text-sm text-green-600">
+              {success}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Name
+              <label className="text-sm font-medium text-gray-700">
+                Full Name
               </label>
               <input
                 type="text"
@@ -78,12 +114,14 @@ export default function Signup() {
                 value={form.name}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg"
+                disabled={isLoading}
+                className="mt-1 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-decorilla-blue outline-none disabled:opacity-50"
               />
             </div>
 
+            {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="text-sm font-medium text-gray-700">
                 Email address
               </label>
               <input
@@ -92,30 +130,44 @@ export default function Signup() {
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg"
+                disabled={isLoading}
+                className="mt-1 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-decorilla-blue outline-none disabled:opacity-50"
               />
             </div>
 
+            {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="text-sm font-medium text-gray-700">
                 Password
               </label>
-              <input
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                required
-                className="mt-1 block w-full p-3 border border-gray-300 rounded-lg"
-              />
+              <div className="relative mt-1">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  required
+                  disabled={isLoading}
+                  className="w-full rounded-xl border px-4 py-3 pr-12 focus:ring-2 focus:ring-decorilla-blue outline-none disabled:opacity-50"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
 
+            {/* Submit */}
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-decorilla-blue text-white py-4 rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-2 w-full rounded-2xl bg-decorilla-blue py-4 font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed"
             >
-              {isLoading ? "Signing up..." : "Sign Up"}
+              {isLoading && <Loader2 className="animate-spin" size={18} />}
+              {isLoading ? "Creating account..." : "Sign Up"}
             </button>
           </form>
         </div>

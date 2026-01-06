@@ -15,39 +15,39 @@ export default function AdminLanding() {
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
-    console.log("AdminLanding - Checking auth:", { 
-      hasUserData: !!userData, 
-      hasToken: !!token,
-      userData: userData ? JSON.parse(userData) : null 
-    });
+    // console.log("AdminLanding - Checking auth:", { 
+    //   hasUserData: !!userData, 
+    //   hasToken: !!token,
+    //   userData: userData ? JSON.parse(userData) : null 
+    // });
 
-    if (!userData || !token) {
-      console.log("AdminLanding - Missing auth, redirecting to login");
-      router.push("/login");
-      return;
-    }
+    // if (!userData || !token) {
+    //   console.log("AdminLanding - Missing auth, redirecting to login");
+    //   router.push("/login");
+    //   return;
+    // }
 
-    let user;
-    try {
-      user = JSON.parse(userData);
-    } catch (error) {
-      console.error("AdminLanding - Error parsing user data:", error);
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      router.push("/login");
-      return;
-    }
+    // let user;
+    // try {
+    //   user = JSON.parse(userData);
+    // } catch (error) {
+    //   console.error("AdminLanding - Error parsing user data:", error);
+    //   localStorage.removeItem("user");
+    //   localStorage.removeItem("token");
+    //   router.push("/login");
+    //   return;
+    // }
     
-    if (user.role !== "admin") {
-      console.log("AdminLanding - User is not admin, redirecting to home");
-      router.push("/");
-      return;
-    }
+    // if (user.role !== "admin") {
+    //   console.log("AdminLanding - User is not admin, redirecting to home");
+    //   router.push("/");
+    //   return;
+    // }
 
     console.log("AdminLanding - User is admin, loading dashboard");
-    setAdminName(user.name || "Admin");
+    // setAdminName(user.name || "Admin");
     
     // Simulate fetching stats
     setTimeout(() => {

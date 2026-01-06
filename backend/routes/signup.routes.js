@@ -1,32 +1,41 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import UserModel from "../model/user.model.js"; // adjust path if needed
+import UserModel from "../model/user.model.js";
 
 const router = express.Router();
 
-router.post("/signup", async (req, res) => {
+router.post("/auth/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // ✅ Basic validations
+    // 🔍 1. Input Validation
     if (!name || !email || !password) {
-      return res.status(400).json({ success: false, message: "All fields are required" });
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
     }
 
     if (password.length < 6) {
-      return res.status(400).json({ success: false, message: "Password must be at least 6 characters long" });
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 6 characters long",
+      });
     }
 
-    // ✅ Check if user already exists
+    // 🔍 2. Check Existing User
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ success: false, message: "User already exists" });
+      return res.status(400).json({
+        success: false,
+        message: "User already exists",
+      });
     }
 
-    // ✅ Hash password
+    // 🔐 3. Hash Password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // ✅ Save user
+    // 🆕 4. Save User
     const user = await UserModel.create({
       name,
       email,
@@ -34,14 +43,19 @@ router.post("/signup", async (req, res) => {
       role: "user",
     });
 
+    // 🎉 5. Response (Don’t return the hashed password)
     return res.status(201).json({
       success: true,
       message: "User registered successfully",
       userId: user._id,
     });
+
   } catch (error) {
     console.error("Signup Error:", error);
-    res.status(500).json({ success: false, message: "Server error. Please try again later." });
+    return res.status(500).json({
+      success: false,
+      message: "Server error. Please try again later.",
+    });
   }
 });
 

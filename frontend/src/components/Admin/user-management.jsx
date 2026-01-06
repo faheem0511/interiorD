@@ -11,7 +11,7 @@ export default function UserManagement() {
   const [deleteLoading, setDeleteLoading] = useState(null);
   const router = useRouter();
 
-  const API_URL = "http://localhost:5000/api";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
   // Fetch users
   const fetchUsers = async () => {
@@ -33,7 +33,7 @@ export default function UserManagement() {
         return;
       }
 
-      const res = await fetch(`${API_URL}/admin/users`, {
+      const res = await fetch(`${API_URL}/api/admin/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
