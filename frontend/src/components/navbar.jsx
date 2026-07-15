@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 
@@ -12,13 +11,9 @@ export default function Navbar() {
   const [showMobileHowDropdown, setShowMobileHowDropdown] = useState(false);
   const [showMobilePortfolioDropdown, setShowMobilePortfolioDropdown] = useState(false);
   const [user, setUser] = useState(null);
+const [showUserDropdown, setShowUserDropdown] = useState(false);
 
   const heroRef = useRef(null);
-
-   const logout = () => {
-    localStorage.removeItem("user");
-    window.location.href = "/";
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,11 +23,26 @@ export default function Navbar() {
       setIsSticky(scrollPosition > heroHeight);
     };
 
+   
+
+
     heroRef.current = document.querySelector('.hero-section');
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
+ useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
+const handleLogout = () => {
+  localStorage.removeItem("user");
+   localStorage.removeItem("token");
+  setUser(null);
+  setShowUserDropdown(false);
+  window.location.href = "/";
+};
   // Close mobile menu when screen size changes to desktop
   useEffect(() => {
     const handleResize = () => {
@@ -76,19 +86,11 @@ export default function Navbar() {
     setShowMobilePortfolioDropdown(false);
   };
 
-  
-useEffect(() => {
-  const storedUser = localStorage.getItem("user");
-  if (storedUser) {
-    setUser(JSON.parse(storedUser));
-  }
-}, []);
-
   return (
     <>
       <div
         className={`w-full z-50 transition-all duration-1000 ${
-          isSticky ? 'fixed top-0 shadow-md py-3' : 'absolute top-0 py-6'
+          isSticky ? 'fixed top-0 shadow-md py-6' : 'absolute top-0 py-8'
         } ${isActive || isMobileMenuOpen ? 'bg-white' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {
@@ -98,12 +100,6 @@ useEffect(() => {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center relative">
-          <div className="flex items-center gap-3 justify-center">
-          <img 
-          src="/logo1.png" 
-          alt="Decorilla Logo" 
-          className="w-12 h-15 object-contain"
-          />  
           {/* Logo */}
           <Link
             href="/"
@@ -113,11 +109,11 @@ useEffect(() => {
             onClick={closeMobileMenu}
           >
             <span className={isActive || isMobileMenuOpen ? 'text-decorilla-blue' : 'text-white'}>
-              DECO
+              Fortunate
             </span>
-            WISE
+            Interior
           </Link>
-</div>
+
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex space-x-8 relative">
@@ -128,7 +124,7 @@ useEffect(() => {
               onMouseLeave={() => setShowHowDropdown(false)}
             >
               <Link
-                href="/how-it-works/the-details"
+                href="/HowItWorks"
                 className={`font-medium transition-colors duration-300 ${
                   isActive
                     ? 'text-decorilla-gray hover:text-decorilla-blue'
@@ -143,19 +139,13 @@ useEffect(() => {
                   <div className="relative w-48 bg-white rounded-md shadow-lg z-50 overflow-hidden">
                     <div className="absolute -top-2 left-6 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white"></div>
                     <Link
-                      href="/how-it-works/the-details"
+                      href="/HowItWorks"
                       className="block px-4 py-3 text-decorilla-dark hover:bg-[#A78A68] hover:text-white transition-all duration-200"
                     >
                       The Details
                     </Link>
                     <Link
-                      href="/how-it-works/pricing"
-                      className="block px-4 py-3 text-decorilla-dark hover:bg-[#A78A68] hover:text-white transition-all duration-200"
-                    >
-                      Pricing
-                    </Link>
-                    <Link
-                      href="/how-it-works/faq"
+                      href="/HowItWorks/faq"
                       className="block px-4 py-3 text-decorilla-dark hover:bg-[#A78A68] hover:text-white transition-all duration-200"
                     >
                       FAQs
@@ -182,7 +172,7 @@ useEffect(() => {
                 PORTFOLIO
               </Link>
 
-              {showPortfolioDropdown && (
+              {/* {showPortfolioDropdown && (
                 <div className="absolute top-full left-0 pt-3 animate-fadeInDown">
                   <div className="relative w-56 bg-white rounded-md shadow-lg z-50 overflow-hidden">
                     <div className="absolute -top-2 left-6 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white"></div>
@@ -212,11 +202,11 @@ useEffect(() => {
                     </Link>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
 
             {/* Other Nav Items */}
-            {['style-quiz'].map((item) => (
+            {/* {['StyleQuiz'].map((item) => (
               <Link
                 key={item}
                 href={`/${item}`}
@@ -228,12 +218,27 @@ useEffect(() => {
               >
                 {item.replace(/-/g, ' ').toUpperCase()}
               </Link>
-            ))}
+              
+
+             
+            ))} */}
+               <Link
+                href="/room-design"
+                className={`font-medium transition-colors duration-300 ${
+                  isActive
+                    ? 'text-decorilla-gray hover:text-decorilla-blue'
+                    : 'text-white hover:text-gray-300'
+                }`}
+              >
+                CONTACT US
+              </Link>
           </div>
 
-          {/* Desktop CTA */}
-   <div className="hidden md:flex items-center gap-4">
-            {!user ? (
+         
+         {/* Desktop User / CTA */}
+<div className="hidden md:block relative">
+ 
+    {!user ? (
               <Link
                 href="/login"
                 className={`px-6 py-2 rounded-md font-semibold transition-all ${
@@ -251,18 +256,18 @@ useEffect(() => {
                     isActive ? "text-decorilla-dark" : "text-white"
                   }`}
                 >
-                  Hello, {user.name}
+                  {user.name}
                 </div>
 
-                <div className="absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                <div className="absolute right-0 mt-3 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
                   <Link
-                    href="/dashboard"
+                    href="/profile"
                     className="block px-4 py-3 text-sm hover:bg-gray-100"
                   >
-                    Dashboard
+                    My Settings
                   </Link>
                   <button
-                    onClick={logout}
+                    onClick={handleLogout}
                     className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50"
                   >
                     Logout
@@ -271,6 +276,7 @@ useEffect(() => {
               </div>
             )}
           </div>
+</div>
 
           {/* Mobile Hamburger Menu */}
           <button
@@ -301,7 +307,7 @@ useEffect(() => {
             ></span>
           </button>
         </div>
-      </div>
+   
 
       {/* Mobile Menu Overlay */}
       <div
@@ -428,7 +434,7 @@ useEffect(() => {
             </div>
 
             {/* Other Mobile Nav Items */}
-            {['style-quiz', 'blog', 'login'].map((item) => (
+            {['StyleQuiz', 'blog', 'login'].map((item) => (
               <Link
                 key={item}
                 href={`/${item}`}
@@ -440,7 +446,16 @@ useEffect(() => {
             ))}
           </nav>
 
- 
+          {/* Mobile CTA */}
+          <div className="mt-8">
+            <Link
+              href="/login"
+              className="block w-full text-center bg-decorilla-blue hover:bg-decorilla-blue-700 text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+              onClick={closeMobileMenu}
+            >
+              GET STARTED
+            </Link>
+          </div>
         </div>
       </div>
 

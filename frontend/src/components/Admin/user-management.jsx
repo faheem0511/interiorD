@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import Sidebar from "./sidebar";
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
@@ -11,7 +13,7 @@ export default function UserManagement() {
   const [deleteLoading, setDeleteLoading] = useState(null);
   const router = useRouter();
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
   // Fetch users
   const fetchUsers = async () => {
@@ -19,33 +21,13 @@ export default function UserManagement() {
       setLoading(true);
       setError("");
       const token = localStorage.getItem("token");
-      
-      // Check if user is admin
-      const userData = localStorage.getItem("user");
-      if (!userData) {
-        router.push("/login");
-        return;
-      }
-
-      const user = JSON.parse(userData);
-      if (user.role !== "admin") {
-        router.push("/");
-        return;
-      }
-
-      const res = await fetch(`${API_URL}/api/admin/users`, {
+      const res = await axios.get(`${API_URL}/auth/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || "Failed to fetch users");
-      }
-
-      const data = await res.json();
-      setUsers(data.users || []);
+      setUsers(res.data.users || []);
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -56,22 +38,17 @@ export default function UserManagement() {
 
   // Delete a user
   const deleteUser = async (id, userName) => {
-    if (!confirm(`⚠️ Are you sure you want to delete ${userName}? This action cannot be undone.`)) return;
+    if (!confirm(`Are you sure you want to delete ${userName}? This action cannot be undone.`)) return;
 
     try {
       setDeleteLoading(id);
       const token = localStorage.getItem("token");
-      const res = await fetch(`${API_URL}/admin/user/${id}`, {
-        method: "DELETE",
+      const res = await axios.delete(`${API_URL}/auth/user/${id}`, {
+
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || "Failed to delete user");
-      }
 
       // Remove user from state
       setUsers(users.filter((u) => u._id !== id));
@@ -89,8 +66,8 @@ export default function UserManagement() {
 
   // Filter users based on search and role
   const filteredUsers = users.filter(user => {
-    const matchesSearch = user.name?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         user.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === "all" || user.role === roleFilter;
     return matchesSearch && matchesRole;
   });
@@ -99,38 +76,37 @@ export default function UserManagement() {
     total: users.length,
     admins: users.filter(u => u.role === 'admin').length,
     users: users.filter(u => u.role === 'user').length,
-    active: users.length // You can replace with actual active count
+    active: users.length
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-      {/* Header */}
+    <div className=" bg-[#e8dfc4]/20 " style={{ display: "flex", minHeight: "100vh" }}>
+
+      <Sidebar />
+        <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-decorilla-blue to-purple-600 rounded-xl flex items-center justify-center">
+              {/* <button className="back-btn cursor-pointer" onClick={() => window.history.back()}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                  <path d="M19 12H5M12 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Back
+              </button> */}
+              {/* <div className="w-10 h-10 bg-[#b8a06a] rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-lg">D</span>
-              </div>
+              </div> */}
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
                 <p className="text-sm text-gray-500">Manage user accounts and permissions</p>
               </div>
             </div>
-            <button
-              onClick={fetchUsers}
-              className="px-4 py-2 bg-decorilla-blue text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200 flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              Refresh
-            </button>
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-9xl mt-8 py-2 sm:px-6 lg:px-12">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
@@ -213,7 +189,7 @@ export default function UserManagement() {
                 />
               </div>
             </div>
-            
+
             <div className="sm:w-48">
               <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-2">
                 Filter by Role
@@ -280,7 +256,7 @@ export default function UserManagement() {
                 </div>
                 <p className="text-gray-600 font-medium">No users found</p>
                 <p className="text-gray-500 text-sm mt-1">
-                  {searchTerm || roleFilter !== "all" 
+                  {searchTerm || roleFilter !== "all"
                     ? "Try adjusting your search or filter criteria"
                     : "No users have been registered yet"
                   }
@@ -290,9 +266,9 @@ export default function UserManagement() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className="bg-[#e8dfc4]">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                       User
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -314,7 +290,7 @@ export default function UserManagement() {
                     <tr key={user._id} className="hover:bg-gray-50 transition-colors duration-150">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <div className="w-10 h-10 bg-gradient-to-r from-decorilla-blue to-purple-600 rounded-full flex items-center justify-center">
+                          <div className="w-10 h-10 bg-[#b8a06a] rounded-full flex items-center justify-center">
                             <span className="text-white font-semibold text-sm">
                               {user.name?.charAt(0).toUpperCase() || 'U'}
                             </span>
@@ -326,11 +302,10 @@ export default function UserManagement() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                          user.role === 'admin' 
-                            ? 'bg-green-100 text-green-800' 
+                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${user.role === 'admin'
+                            ? 'bg-green-100 text-green-800'
                             : 'bg-blue-100 text-blue-800'
-                        }`}>
+                          }`}>
                           {user.role}
                         </span>
                       </td>
@@ -385,6 +360,7 @@ export default function UserManagement() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }

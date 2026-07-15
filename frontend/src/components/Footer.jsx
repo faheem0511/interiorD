@@ -52,25 +52,27 @@ export default function Footer() {
           <div className="text-center sm:text-left">
             <h3 className="text-lg font-bold text-[#A78A68] mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><Link href="/how-it-works" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">How It Works</Link></li>
-              <li><Link href="/pricing" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Pricing</Link></li>
-              <li><Link href="/design-styles" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Design Styles</Link></li>
+              <li><Link href="/HowItWorks" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">How It Works</Link></li>
+              {/* <li><Link href="/pricing" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Pricing</Link></li> */}
+              {/* <li><Link href="/design-styles" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Design Styles</Link></li> */}
               <li><Link href="/portfolio" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Portfolio</Link></li>
-              <li><Link href="/blog" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Blog</Link></li>
+              <li><Link href="/contact Us" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
           {/* Services */}
           <div className="text-center sm:text-left">
-            <h3 className="text-lg font-bold text-[#A78A68] mb-4">Services</h3>
+            <h3 className="text-lg font-bold text-[#A78A68] mb-4">Our Services</h3>
             <ul className="space-y-2">
-              <li><Link href="/living-room" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Living Room Design</Link></li>
-              <li><Link href="/bedroom" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Bedroom Design</Link></li>
-              <li><Link href="/kitchen" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Kitchen Design</Link></li>
-              <li><Link href="/home-office" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Home Office Design</Link></li>
-              <li><Link href="/full-home" className="text-gray-900 hover:text-[#846A4D] text-sm md:text-base transition-colors">Full Home Design</Link></li>
+              <li className="text-gray-900 hover:text-[#846A4D]">Living Room Design</li>
+              <li className="text-gray-900 hover:text-[#846A4D]">Bedroom Design</li>
+              <li className="text-gray-900 hover:text-[#846A4D]">Kitchen Design</li>
+              <li className="text-gray-900 hover:text-[#846A4D]">Bathroom Design</li>
+              <li className="text-gray-900 hover:text-[#846A4D]">Office Design</li>
+              <li className="text-gray-900 hover:text-[#846A4D]">Full Home Design</li>
             </ul>
           </div>
+     
 
           {/* Newsletter */}
           <div className="text-center sm:text-left">
@@ -100,12 +102,11 @@ export default function Footer() {
         <div className="border-t border-gray-800 pt-6 md:pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-900 text-sm text-center md:text-left">
-              © {new Date().getFullYear()} DecorAI. All rights reserved.
+              © {new Date().getFullYear()} Fortunate Interiors. All rights reserved.
             </p>
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6 text-center">
-              <Link href="/privacy" className="text-gray-900 hover:text-[#846A4D] text-sm transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-gray-900 hover:text-[#846A4D] text-sm transition-colors">Terms of Service</Link>
-              <Link href="/refund" className="text-gray-900 hover:text-[#846A4D] text-sm transition-colors">Refund Policy</Link>
+              <Link href="/" className="text-gray-900 hover:text-[#846A4D] text-sm transition-colors">Privacy Policy</Link>
+              <Link href="/" className="text-gray-900 hover:text-[#846A4D] text-sm transition-colors">Terms of Service</Link>
             </div>
           </div>
         </div>

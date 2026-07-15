@@ -1,38 +1,51 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import designRoutes from './routes/design.routes.js';
-import loginRoutes from './routes/login.routes.js';
-import SignupRoutes from './routes/signup.routes.js';
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import authRoutes from "./routes/auth.routes.js";
 import portfolioRoutes from "./routes/portfolio.routes.js";
-import adminRoutes from "./routes/admin.routes.js"
 import path from "path";
 
 dotenv.config();
+connectDB();
+
+// app.use(
+//   cors({
+//     origin: "http://localhost:3000", // frontend URL ONLY
+//     credentials: true,               // allow cookies
+//   })
+// );
+
 const app = express();
-
-app.use(
-  cors({
-    origin: "http://localhost:3000", // frontend URL ONLY
-    credentials: true,               // allow cookies
-  })
-);
-
+app.use(cors());
 app.use(express.json());
 
-app.use('/api/design', designRoutes);
-app.use('/api', loginRoutes);
-app.use('/api', SignupRoutes);
-app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads"))); 
+// --------------------- Health Check --------------------- //
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", message: "Interior backend running" });
+});
+
+app.use("/api/uploads", (req, res, next) => {
+  console.log("Static request:", req.url);
+  next();
+});
+
+// --------------------- API Routes --------------------- //
+app.use("/api/uploads", express.static(path.join(process.cwd(), "uploads")));
+app.use("/api/auth", authRoutes);
 app.use("/api/portfolio", portfolioRoutes);
-app.use("/api/admin",adminRoutes);
 
+// --------------------- Error Handler --------------------- //
+app.use((err, req, res, next) => {
+  console.error("🔥 Error:", err.message);
+  res.status(err.statusCode || 500).json({
+    success: false,
+    message: err.message || "Internal server error",
+  });
+});
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB connected");
-    app.listen(5000, () => console.log("Server running on port 5000"));
-  })
-  .catch((err) => console.error(err));
-  
+// --------------------- Start Server --------------------- //
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () =>
+  console.log(`🚀 Interior Backend running on http://localhost:${PORT}`)
+);

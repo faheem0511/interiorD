@@ -50,7 +50,7 @@ export default function DesignStyles() {
 
   return (
     <>
-    {/* bg-gradient-to-r from-decorilla-blue to-purple-600 */}
+    {/* bg-gradient-to-r from-Fortunate Interiors-blue to-purple-600 */}
       <section className="py-10 bg-gradient-to-b from-gray-300 via-white to-gray-50 relative overflow-hidden">
         {/* Background decoration */}
 

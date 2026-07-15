@@ -37,9 +37,8 @@ export default function Signup() {
 
     try {
       const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`,
-        form,
-        { withCredentials: true }
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+        form
       );
 
       if (!data?.success) {
@@ -60,20 +59,28 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex bg-decorilla-blue/50">
+    <div className="min-h-screen flex bg-decorilla-blue/20">
       {/* Left Image */}
       <div className="hidden lg:block flex-1 relative overflow-hidden">
         <img
-          src="/h1.jpg"
+          src="/traditional.jpg"
           alt="Signup"
           className="object-cover w-full h-full"
         />
-        <div className="absolute inset-0 bg-black/30" />
+          {/* Floating Particles - Hidden on mobile */}
+                <div className="absolute inset-0 hidden lg:block">
+                    <div className="absolute top-20 left-20 w-3 h-3 bg-white bg-opacity-70 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                    <div className="absolute top-32 right-24 w-2 h-2 bg-white bg-opacity-50 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+                    <div className="absolute bottom-32 left-32 w-4 h-4 bg-white bg-opacity-60 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
+                    <div className="absolute bottom-20 right-16 w-2 h-2 bg-white bg-opacity-40 rounded-full animate-bounce" style={{ animationDelay: '1.5s' }}></div>
+                </div>
+
+        <div className="absolute inset-0 bg-black/10" />
       </div>
 
       {/* Form */}
       <div className="flex-1 flex items-center justify-center px-6">
-        <div className="w-full max-w-md space-y-8 bg-white p-10 rounded-3xl shadow-xl">
+        <div className="w-full max-w-md space-y-8 bg-white p-10 rounded-2xl shadow-xl">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-gray-900">
               Create your account
@@ -115,7 +122,7 @@ export default function Signup() {
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="mt-1 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-decorilla-blue outline-none disabled:opacity-50"
+                className="mt-1 w-full rounded-xl shadow-sm px-4 py-3 focus:ring-2 focus:ring-decorilla-blue outline-none disabled:opacity-50"
               />
             </div>
 
@@ -131,7 +138,7 @@ export default function Signup() {
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="mt-1 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:ring-decorilla-blue outline-none disabled:opacity-50"
+                className="mt-1 w-full rounded-xl shadow-sm px-4 py-3 focus:ring-2 focus:ring-decorilla-blue outline-none disabled:opacity-50"
               />
             </div>
 
@@ -148,7 +155,7 @@ export default function Signup() {
                   onChange={handleChange}
                   required
                   disabled={isLoading}
-                  className="w-full rounded-xl border px-4 py-3 pr-12 focus:ring-2 focus:ring-decorilla-blue outline-none disabled:opacity-50"
+                  className="w-full rounded-xl px-4 shadow-sm py-3 pr-12 focus:ring-2 focus:ring-decorilla-blue outline-none disabled:opacity-50"
                 />
                 <button
                   type="button"

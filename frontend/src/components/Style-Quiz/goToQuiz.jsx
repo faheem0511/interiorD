@@ -45,7 +45,7 @@ export default function GoQuiz() {
   return (
     <div className="flex flex-col min-h-screen">
       <header>
-        <h1>DecorWise</h1>
+        <h1>Fortunate Interiors</h1>
       </header>
 
       <main className="flex-grow flex items-center justify-center bg-gray-50 px-4 py-16">

@@ -4,10 +4,10 @@ import DesignStyles from '../components/Home/DesignStyles.jsx';
 import Testimonials from '../components/Home/Testimonials.jsx';
 import Footer from '../components/Footer.jsx';
 import Navbar from '../components/navbar.jsx';
-import Ai from '../components/Home/Ai.jsx';
 import Faq from '../components/Home/Faq.jsx';
-import Last from '../components/Last/Last.jsx'
+import Last from '../components/Home/Last.jsx'
 import Feature from '../components/Home/feature.jsx';
+// import Ai from '../components/Home/Ai.jsx';
 export default function Home() {
   return (
     <>

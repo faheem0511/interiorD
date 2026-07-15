@@ -1,26 +1,26 @@
 import express from "express";
 import multer from "multer";
-import path from "path";
-import {
-  getPortfolioItems,
-  addPortfolioItem,
-  updatePortfolioItem,
-  deletePortfolioItem,
-} from "../controller/Portfolio.controller.js";
+import { addPortfolio, deletePortfolio, getPortfolio, updatePortfolio } from "../controller/portfolio.controller.js";
+import {protect} from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
-// Multer setup
 const storage = multer.diskStorage({
-  destination: "./public/uploads",
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
+  destination: "./uploads",
+ filename: (req, file, cb) => {
+  const safeName = file.originalname
+    .replace(/\s+/g, "_")
+    .replace(/[()]/g, "");
+
+  cb(null, Date.now() + "-" + safeName);
+},
+
 });
 const upload = multer({ storage });
 
-// Public: get portfolio
-router.get("/", getPortfolioItems);
-router.post("/", upload.single("image"), addPortfolioItem);
-router.put("/", upload.single("image"), updatePortfolioItem);
-router.delete("/", deletePortfolioItem);
+router.get("/", getPortfolio);
+router.post("/add", upload.single("image"), addPortfolio);
+router.put("/update/:id", protect, upload.single("image"), updatePortfolio);
+router.delete("/delete/:id", protect, deletePortfolio);
 
 export default router;

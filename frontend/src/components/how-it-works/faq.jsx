@@ -4,7 +4,7 @@ import { Home, Settings, DollarSign, ShoppingBag, Users } from 'lucide-react';
 import Footer from '@/src/components/Footer';
 import Navbar from '@/src/components/navbar';
 
-const DecorillaFAQ = () => {
+const  Faq = () => {
   const [activeCategory, setActiveCategory] = useState('general');
   const [openQuestions, setOpenQuestions] = useState([]);
 
@@ -19,29 +19,29 @@ const DecorillaFAQ = () => {
   const faqs = {
     general: [
       {
-        question: "What is Decorilla?",
-        answer: "Decorilla is an online interior design service that connects you with professional designers to transform your space. We offer multiple design concept proposals from professional designers, a fun and simple experience prioritizing top customer service, exclusive discounts of up to 45% at over 200 top retailers and vendors, an accomplished team of designers that has been carefully selected and vetted, fixed prices that are 80% less than traditional interior design, a 100% satisfaction guarantee, 3D & VR realistic design concepts, and in-home assistance in most major cities across the US."
+        question: "What is Fortunate Interiors?",
+        answer: "Fortunate Interiors is an online interior design service that connects you with professional designers to transform your space. We offer multiple design concept proposals from professional designers, a fun and simple experience prioritizing top customer service, exclusive discounts of up to 45% at over 200 top retailers and vendors, an accomplished team of designers that has been carefully selected and vetted, fixed prices that are 80% less than traditional interior design, a 100% satisfaction guarantee, 3D & VR realistic design concepts, and in-home assistance in most major cities across the US."
       },
       {
-        question: "Does Decorilla use AI interior design?",
-        answer: "Yes, Decorilla offers AI-enhanced interior design, combining cutting-edge technology with the creativity of top-tier human designers. Our technology helps generate accurate 3D renderings, streamline design workflows, and match clients with the best interior designers for their style and project needs. But what sets Decorilla apart is our human-first approach. Every Decorilla project is led by a professional interior designer who brings personal insight, style expertise, and tailored guidance—something AI alone can't replicate."
+        question: "Does Fortunate Interiors use AI interior design?",
+        answer: "Yes, Fortunate Interiors offers AI-enhanced interior design, combining cutting-edge technology with the creativity of top-tier human designers. Our technology helps generate accurate 3D renderings, streamline design workflows, and match clients with the best interior designers for their style and project needs. But what sets Fortunate Interiors apart is our human-first approach. Every Fortunate Interiors project is led by a professional interior designer who brings personal insight, style expertise, and tailored guidance—something AI alone can't replicate."
       },
       {
-        question: "What's included in a Decorilla design package?",
+        question: "What's included in a Fortunate Interiors design package?",
         answer: "Each package includes: Multiple Concept Proposals from Top Designers - Professional designers will submit tailored concepts based on your preferences. Realistic 3D renderings prepared on interior design software. Floor Plan and Furniture Placement for effective and aesthetically pleasing spatial layouts. Itemized shopping list with discounts and access to our complimentary personal shopping service. Color palette recommendations for paint colors or wallpaper. Tips and implementation guide to keep you organized during the decorating process."
       },
       {
-        question: "Can I purchase a Decorilla gift certificate?",
-        answer: "Yes! Decorilla gift certificates are a fantastic way to treat friends and family to a home or office makeover with top interior designers. They're instant and beautifully presented, come with a 100% satisfaction guarantee, and include a complimentary discovery call. Choose a design package or set a custom amount, send it directly to your recipient, and they can redeem easily by contacting gift@decorilla.com."
+        question: "Can I purchase a Fortunate Interiors gift certificate?",
+        answer: "Yes! Fortunate Interiors gift certificates are a fantastic way to treat friends and family to a home or office makeover with top interior designers. They're instant and beautifully presented, come with a 100% satisfaction guarantee, and include a complimentary discovery call. Choose a design package or set a custom amount, send it directly to your recipient, and they can redeem easily by contacting gift@Fortunate Interiors.com."
       },
       {
-        question: "How does Decorilla compare to traditional interior design?",
-        answer: "At Decorilla, we pride ourselves on offering interior design services that match or surpass the traditional interior design process. Our innovative online platform enables us to provide services that are both flexible and cost-effective. You'll receive detailed 3D renderings, comprehensive layout plans, and access to exclusive trade discounts, all ensuring a high-quality design experience. Moreover, you can enjoy all these benefits from the comfort of your home at prices 80% less than traditional interior design."
+        question: "How does Fortunate Interiors compare to traditional interior design?",
+        answer: "At Fortunate Interiors, we pride ourselves on offering interior design services that match or surpass the traditional interior design process. Our innovative online platform enables us to provide services that are both flexible and cost-effective. You'll receive detailed 3D renderings, comprehensive layout plans, and access to exclusive trade discounts, all ensuring a high-quality design experience. Moreover, you can enjoy all these benefits from the comfort of your home at prices 80% less than traditional interior design."
       }
     ],
     process: [
       {
-        question: "How does the Decorilla process work?",
+        question: "How does the Fortunate Interiors process work?",
         answer: "Our process is simple: First, complete a quick style quiz and room survey. Next, we match you with 2-3 designers who create custom concepts for your space. You choose your favorite concept, and that designer completes your full design with 3D renderings, shopping lists, and implementation guides. Finally, you purchase items at your own pace and bring your design to life."
       },
       {
@@ -63,7 +63,7 @@ const DecorillaFAQ = () => {
     ],
     pricing: [
       {
-        question: "How much do Decorilla design packages cost?",
+        question: "How much do Fortunate Interiors design packages cost?",
         answer: "Our design packages have a flat rate based on the room type and the level of design expertise you choose (Bronze, Silver, or Gold). Packages typically range from $549 to $1,799 per room. The package price includes all the design services outlined in the package description, such as initial concepts, revisions, 3D renderings, a shopping list, and design guidance."
       },
       {
@@ -72,7 +72,7 @@ const DecorillaFAQ = () => {
       },
       {
         question: "What are the trade discounts?",
-        answer: "Decorilla clients receive exclusive discounts of up to 45% at over 200 top retailers and vendors. These trade discounts can save you hundreds or thousands of dollars on furniture and decor purchases, often offsetting the cost of the design package itself."
+        answer: "Fortunate Interiors clients receive exclusive discounts of up to 45% at over 200 top retailers and vendors. These trade discounts can save you hundreds or thousands of dollars on furniture and decor purchases, often offsetting the cost of the design package itself."
       },
       {
         question: "Are there any hidden fees?",
@@ -101,13 +101,13 @@ const DecorillaFAQ = () => {
         answer: "If an item becomes unavailable, simply contact your designer. They'll help you find a comparable alternative that fits your design and budget."
       },
       {
-        question: "Can Decorilla handle the purchasing for me?",
+        question: "Can Fortunate Interiors handle the purchasing for me?",
         answer: "Yes! We offer white-glove service where we can handle purchasing, delivery coordination, and even installation. This service is available for an additional fee in most major cities."
       }
     ],
     designers: [
       {
-        question: "Who are Decorilla's designers?",
+        question: "Who are Fortunate Interiors's designers?",
         answer: "Our designers are professionally trained interior designers with degrees from accredited design schools and years of industry experience. Each designer goes through a rigorous vetting process and maintains a portfolio of successful projects. We have designers specializing in various styles, from modern to traditional."
       },
       {
@@ -116,7 +116,7 @@ const DecorillaFAQ = () => {
       },
       {
         question: "Can I request a specific designer?",
-        answer: "Yes! If you've seen work from a specific Decorilla designer that you love, you can request to work with them when starting your project, subject to their availability."
+        answer: "Yes! If you've seen work from a specific Fortunate Interiors designer that you love, you can request to work with them when starting your project, subject to their availability."
       },
       {
         question: "How do I communicate with my designer?",
@@ -156,7 +156,7 @@ const DecorillaFAQ = () => {
               Frequently Asked Questions
             </h1>
             <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 max-w-2xl mx-auto px-4">
-              Explore and get to know more about Decorilla
+              Explore and get to know more about Fortunate Interiors
             </p>
           </div>
         </div>
@@ -253,4 +253,4 @@ const DecorillaFAQ = () => {
   );
 };
 
-export default DecorillaFAQ;
+export default Faq;

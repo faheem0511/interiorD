@@ -1,4 +1,4 @@
-import AdminLanding from "../../components/Admin/admin";
+import AdminLanding from "../../components/Admin/dashboard";
 
 export default function Page() {
   return (

@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 
 export const metadata = {
-  title: "DecorWise",
+  title: "Fortunate Interiors",
   description: "App description",
 };
 
